@@ -40,8 +40,8 @@ class DirectoryApplication : Application(), AppComponentProvider, DirectoryCompo
     override fun directoryComponent(): DirectoryComponent {
         if(!::directoryComponentVar.isInitialized) {
             directoryComponentVar =  DaggerDirectoryComponent
-                .factory()
-                .create(appComponent())
+                .builder().appComponent(appComponent())
+                .build()
         }
         return  directoryComponentVar
     }

@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.takehome.sauravrp.DirectoryComponentProvider
 import com.takehome.sauravrp.R
 import com.takehome.sauravrp.databinding.CharactersViewBinding
@@ -40,6 +41,8 @@ class CharactersActivity : AppCompatActivity(),
                 .build()
                 .inject(this)
 
+        model = ViewModelProvider(this, charactersViewModelFactory).get(CharacterViewModel::class.java)
+
         binding.listView.apply {
             adapter = listAdapter
         }
@@ -48,9 +51,7 @@ class CharactersActivity : AppCompatActivity(),
             model.fetchCharacters()
         }
 
-        val viewModel: CharacterViewModel by viewModels { charactersViewModelFactory }
-
-        viewModel.viewState.observe(this, Observer {
+        model.viewState.observe(this, Observer {
             when (it) {
                 is CharacterViewModel.ViewState.Error -> showError(it.error)
                 CharacterViewModel.ViewState.Loading -> showLoading()
@@ -64,7 +65,6 @@ class CharactersActivity : AppCompatActivity(),
             }
         })
 
-        model = viewModel
     }
 
     private fun showEmpty() {
@@ -111,6 +111,6 @@ class CharactersActivity : AppCompatActivity(),
     }
 
     override fun cardItemSelected(employee: ShowCharacter) {
-        // does nothing
+        CharacterDetailActivity.startActivity(this, employee.id)
     }
 }

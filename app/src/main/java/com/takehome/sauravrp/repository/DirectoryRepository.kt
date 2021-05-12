@@ -27,6 +27,10 @@ class DirectoryRepository @Inject constructor(private val webServicesAPI: WebSer
         }
 
     }
+
+    fun getCharacterDetail(id: String) : Single<ShowCharacter> {
+        return appDatabase.characterDao().getCharacter(id)
+    }
 }
 
 // Network dto converted to models consumed by views
