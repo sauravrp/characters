@@ -26,24 +26,24 @@
             tools:text="John Doe" />
 
         <TextView
-            android:id="@+id/team_label"
+            android:id="@+id/species_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/team_label"
+            android:text="@string/specifies_label"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <TextView
-            android:id="@+id/team_value"
+            android:id="@+id/species_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:gravity="start"
-            tools:text="Engineering"
+            tools:text="Human"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@id/team_label"
+            app:layout_constraintBaseline_toBaselineOf="@id/species_label"
             app:layout_constraintStart_toEndOf="@+id/labels_barrier" />
 
         <ImageView
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="end"
-            app:constraint_referenced_ids="team_label"/>
+            app:constraint_referenced_ids="species_label"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -41,18 +41,18 @@ class CharactersAdapter(private val characterSelectionListener: CharacterSelecti
                 name.text = item.name
                 name.isVisible = item.name.isNotBlank()
 
-                teamValue.text = item.team
-                item.team.isNotBlank().let {
-                    teamValue.isVisible = it
-                    teamLabel.isVisible = it
+                speciesValue.text = item.species
+                item.species.isNotBlank().let {
+                    speciesValue.isVisible = it
+                    speciesLabel.isVisible = it
                 }
             }
 
-            if(item.smallPhotoUrl.isNotBlank()) {
+            if(item.image.isNotBlank()) {
                 binding.avatar.isVisible = true
                 Picasso
                     .get()
-                    .load(item.smallPhotoUrl)
+                    .load(item.image)
                     .error(R.drawable.no_image_found)
                     .placeholder(R.drawable.image_loading)
                     .into(binding.avatar)

@@ -1,5 +1,8 @@
 # Overview
-Build an employee directory app that shows a list of employees parsed from the provided JSON endpoint.
+Build an characters directory app that shows a list of rick and morty characters parsed from the provided JSON endpoint.
+
+# Api Documentation
+https://rickandmortyapi.com/
 
 # Focus Area
 My primary focus was on the architecture and the data flow. 

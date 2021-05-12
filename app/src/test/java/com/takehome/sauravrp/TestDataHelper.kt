@@ -3,23 +3,21 @@ package com.takehome.sauravrp
 import com.takehome.sauravrp.network.models.CharacterDto
 
 object TestDataHelper {
-    fun characterDto() = CharacterDto(uuid = "1",
-        fullName = "John",
-        phoneNumber = "111",
-        emailAddress = "email@email.com",
-        biography = "android developer",
-        photoUrlLarge = "largeUrl",
-        photoUrlSmall = "smallUrl",
-        team = "Engineering",
-        employeeType = "CONTRACTOR")
+    fun characterDto() = CharacterDto(
+        id = "1",
+        name = "John",
+        species = "111",
+        type = "some",
+        gender = "MALE",
+        image = "something"
+    )
 
-    fun characterDtoWithEmptyValues()  = CharacterDto(uuid = "1",
-        fullName = "John",
-        phoneNumber = null,
-        emailAddress = "email@email.com",
-        biography = null,
-        photoUrlLarge = "",
-        photoUrlSmall = "",
-        team = "Engineering",
-        employeeType = "FULL_TIME")
+    fun characterDtoWithEmptyValues() = CharacterDto(
+        id = "1",
+        name = "John",
+        species = "111",
+        type = "some",
+        gender = "MALE",
+        image = "something"
+    )
 }

@@ -26,15 +26,11 @@ class CharacterViewModel(
         mutableViewState
     }
 
-    private var disposable : Disposable? = null
+    private var disposable: Disposable? = null
 
     fun fetchCharacters() {
         disposable?.dispose()
         directoryRepository
-                /** use this for testing malformed data only */
-//            .getEmployeeDirectoryMalformed()
-            /** use this for testing empty data only */
-//            .getEmptyEmployeeDirectory()
             .getCharacterDirectory()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -57,22 +53,24 @@ class CharacterViewModel(
 
 @Parcelize
 data class Character(
-    val uuid: String,
+    val id: String,
     val name: String,
-    val phone: String,
-    val email: String,
-    val biography: String,
-    val smallPhotoUrl: String,
-    val largePhotoUrl: String,
-    val team: String,
-    val type: EmployeeType
+    val species: String,
+    val type: String,
+    val gender: String,
+    val image: String
 ) : Parcelable
 
 @Parcelize
 data class Characters(
+    val info: Info,
     val characters: List<Character>
 ) : Parcelable
 
-enum class EmployeeType {
-    FULL_TIME, PART_TIME, CONTRACTOR
-}
+@Parcelize
+data class Info(
+    val count: Int,
+    val pages: Int,
+    val next: String?,
+    val prev: String?
+) : Parcelable

@@ -100,7 +100,7 @@ class CharactersActivity : AppCompatActivity(),
     }
 
     private fun showSuccess(data: Characters) {
-        Timber.d("Showing employees")
+        Timber.d("Showing characters")
         binding.apply {
             listView.isVisible = true
             progress.isVisible = false

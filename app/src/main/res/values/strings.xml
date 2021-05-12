@@ -4,7 +4,7 @@
     <string name="error_message">Error occurred. Please try again</string>
     <string name="phone_label">Phone:</string>
     <string name="email_label">Email:</string>
-    <string name="team_label">Team:</string>
+    <string name="specifies_label">Species:</string>
     <string name="status_label">Status:</string>
     <string name="empty_message">No Characters found</string>
     <string name="avatar">avatar image</string>
