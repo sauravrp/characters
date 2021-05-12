@@ -10,11 +10,11 @@ import com.squareup.picasso.Picasso
 import com.takehome.sauravrp.R
 import com.takehome.sauravrp.databinding.CharacterSummaryItemViewBinding
 import com.takehome.sauravrp.helpers.CharacterItemResultDiffCallback
-import com.takehome.sauravrp.viewmodels.Character
+import com.takehome.sauravrp.viewmodels.ShowCharacter
 import com.takehome.sauravrp.views.adapter.CharactersAdapter.CharacterCardViewHolder
 
 class CharactersAdapter(private val characterSelectionListener: CharacterSelectionListener) :
-    ListAdapter<Character, CharacterCardViewHolder>(CharacterItemResultDiffCallback()) {
+    ListAdapter<ShowCharacter, CharacterCardViewHolder>(CharacterItemResultDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterCardViewHolder {
         val itemBinding = CharacterSummaryItemViewBinding.inflate(
@@ -34,7 +34,7 @@ class CharactersAdapter(private val characterSelectionListener: CharacterSelecti
     inner class CharacterCardViewHolder(private val binding: CharacterSummaryItemViewBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        fun bind(item: Character) {
+        fun bind(item: ShowCharacter) {
             with(binding) {
                 root.setOnClickListener(this@CharacterCardViewHolder)
 
@@ -67,6 +67,6 @@ class CharactersAdapter(private val characterSelectionListener: CharacterSelecti
     }
 
     interface CharacterSelectionListener {
-        fun cardItemSelected(character: Character)
+        fun cardItemSelected(character: ShowCharacter)
     }
 }

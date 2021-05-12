@@ -9,7 +9,7 @@ import com.takehome.sauravrp.DirectoryComponentProvider
 import com.takehome.sauravrp.R
 import com.takehome.sauravrp.databinding.CharactersViewBinding
 import com.takehome.sauravrp.di.components.DaggerActivityComponent
-import com.takehome.sauravrp.viewmodels.Character
+import com.takehome.sauravrp.viewmodels.ShowCharacter
 import com.takehome.sauravrp.viewmodels.CharacterViewModel
 import com.takehome.sauravrp.viewmodels.CharactersViewModelFactory
 import com.takehome.sauravrp.viewmodels.Characters
@@ -35,9 +35,10 @@ class CharactersActivity : AppCompatActivity(),
         setContentView(binding.root)
 
         DaggerActivityComponent
-            .factory()
-            .create((applicationContext as DirectoryComponentProvider).directoryComponent())
-            .inject(this)
+                .builder()
+                .directoryComponent((applicationContext as DirectoryComponentProvider).directoryComponent())
+                .build()
+                .inject(this)
 
         binding.listView.apply {
             adapter = listAdapter
@@ -53,8 +54,8 @@ class CharactersActivity : AppCompatActivity(),
             when (it) {
                 is CharacterViewModel.ViewState.Error -> showError(it.error)
                 CharacterViewModel.ViewState.Loading -> showLoading()
-                is CharacterViewModel.ViewState.Success ->  {
-                    if(it.data.characters.isEmpty()) {
+                is CharacterViewModel.ViewState.Success -> {
+                    if (it.data.characters.isEmpty()) {
                         showEmpty()
                     } else {
                         showSuccess(it.data)
@@ -109,7 +110,7 @@ class CharactersActivity : AppCompatActivity(),
         listAdapter.submitList(data.characters)
     }
 
-    override fun cardItemSelected(employee: Character) {
+    override fun cardItemSelected(employee: ShowCharacter) {
         // does nothing
     }
 }

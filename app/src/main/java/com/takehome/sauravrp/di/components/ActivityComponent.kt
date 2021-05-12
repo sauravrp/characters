@@ -9,8 +9,9 @@ import dagger.Component
 interface ActivityComponent {
     fun inject(activity: CharactersActivity)
 
-    @Component.Factory
-    interface Factory {
-        fun create(component: DirectoryComponent): ActivityComponent
+    @Component.Builder
+    interface Builder {
+        fun directoryComponent(directoryComponent: DirectoryComponent): Builder
+        fun build(): ActivityComponent
     }
 }

@@ -32,7 +32,7 @@ class DirectoryApplication : Application(), AppComponentProvider, DirectoryCompo
 
     override fun appComponent(): AppComponent {
        if(!::applicationComponent.isInitialized) {
-           applicationComponent = DaggerAppComponent.create()
+           applicationComponent = DaggerAppComponent.builder().bindAppContext(applicationContext).build()
        }
         return  applicationComponent
     }

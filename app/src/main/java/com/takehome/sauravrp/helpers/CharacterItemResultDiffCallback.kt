@@ -1,9 +1,9 @@
 package com.takehome.sauravrp.helpers
 
 import androidx.recyclerview.widget.DiffUtil
-import com.takehome.sauravrp.viewmodels.Character
+import com.takehome.sauravrp.viewmodels.ShowCharacter
 
-class CharacterItemResultDiffCallback : DiffUtil.ItemCallback<Character>() {
-    override fun areItemsTheSame(oldItem: Character, newItem: Character) = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Character, newItem: Character) = oldItem == newItem
+class CharacterItemResultDiffCallback : DiffUtil.ItemCallback<ShowCharacter>() {
+    override fun areItemsTheSame(oldItem: ShowCharacter, newItem: ShowCharacter) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: ShowCharacter, newItem: ShowCharacter) = oldItem == newItem
 }
