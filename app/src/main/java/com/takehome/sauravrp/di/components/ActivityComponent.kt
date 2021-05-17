@@ -3,6 +3,7 @@ package com.takehome.sauravrp.di.components
 import com.takehome.sauravrp.di.scopes.ActivityScope
 import com.takehome.sauravrp.views.CharacterDetailActivity
 import com.takehome.sauravrp.views.CharactersActivity
+import com.takehome.sauravrp.views.CharactersFragment
 import dagger.Component
 
 @ActivityScope

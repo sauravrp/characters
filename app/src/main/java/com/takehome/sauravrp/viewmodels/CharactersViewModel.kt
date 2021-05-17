@@ -29,6 +29,16 @@ class CharacterViewModel(
         mutableViewState
     }
 
+
+    private val mutableSelectedCharacter = MutableLiveData<ShowCharacter>()
+    val selectedCharacter : LiveData<ShowCharacter> by lazy {
+        mutableSelectedCharacter
+    }
+
+    fun setSelection(selected: ShowCharacter) {
+        mutableSelectedCharacter.value = selected
+    }
+
     private var disposable: Disposable? = null
 
     fun fetchCharacters() {

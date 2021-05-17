@@ -12,7 +12,6 @@ class CharacterDetailViewModel(private val directoryRepository: DirectoryReposit
 
 
     private val mutableViewState = MutableLiveData<ViewState>()
-
     val viewState : LiveData<ViewState> by lazy {
         mutableViewState
     }
