@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
+import androidx.paging.PagingData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.takehome.sauravrp.DirectoryComponentProvider
 import com.takehome.sauravrp.R
 import com.takehome.sauravrp.databinding.CharactersViewBinding
@@ -12,7 +13,6 @@ import com.takehome.sauravrp.di.components.DaggerActivityComponent
 import com.takehome.sauravrp.viewmodels.Character
 import com.takehome.sauravrp.viewmodels.CharacterViewModel
 import com.takehome.sauravrp.viewmodels.CharactersViewModelFactory
-import com.takehome.sauravrp.viewmodels.Characters
 import com.takehome.sauravrp.views.adapter.CharactersAdapter
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,6 +41,7 @@ class CharactersActivity : AppCompatActivity(),
 
         binding.listView.apply {
             adapter = listAdapter
+            layoutManager = LinearLayoutManager(context)
         }
 
         binding.retryButton.setOnClickListener {
@@ -49,19 +50,22 @@ class CharactersActivity : AppCompatActivity(),
 
         val viewModel: CharacterViewModel by viewModels { charactersViewModelFactory }
 
-        viewModel.viewState.observe(this, Observer {
-            when (it) {
-                is CharacterViewModel.ViewState.Error -> showError(it.error)
-                CharacterViewModel.ViewState.Loading -> showLoading()
-                is CharacterViewModel.ViewState.Success ->  {
-                    if(it.data.characters.isEmpty()) {
-                        showEmpty()
-                    } else {
-                        showSuccess(it.data)
-                    }
-                }
-            }
+        viewModel.fetchCharacters().observe(this, {
+            showSuccess(it)
         })
+//        viewModel.viewState.observe(this, Observer {
+//            when (it) {
+//                is CharacterViewModel.ViewState.Error -> showError(it.error)
+//                CharacterViewModel.ViewState.Loading -> showLoading()
+//                is CharacterViewModel.ViewState.Success ->  {
+//                    if(it.data.characters.isEmpty()) {
+//                        showEmpty()
+//                    } else {
+//                        showSuccess(it.data)
+//                    }
+//                }
+//            }
+//        })
 
         model = viewModel
     }
@@ -99,17 +103,18 @@ class CharactersActivity : AppCompatActivity(),
         }
     }
 
-    private fun showSuccess(data: Characters) {
+    private fun showSuccess(data: PagingData<Character>) {
         Timber.d("Showing characters")
         binding.apply {
             listView.isVisible = true
             progress.isVisible = false
             noResultsContainer.isVisible = false
         }
-        listAdapter.submitList(data.characters)
+        listAdapter.submitData(lifecycle, data)
     }
 
     override fun cardItemSelected(employee: Character) {
         // does nothing
+        println("cardItemselected = $employee")
     }
 }

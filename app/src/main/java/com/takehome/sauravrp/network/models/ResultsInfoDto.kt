@@ -6,3 +6,11 @@ data class ResultsInfoDto(
     val next: String?,
     val prev: String?
 )
+
+fun ResultsInfoDto.nextPage(): Int? {
+    return next?.split("=")?.last()?.toInt()
+}
+
+fun ResultsInfoDto.prevPage(): Int? {
+    return prev?.split("=")?.last()?.toInt()
+}

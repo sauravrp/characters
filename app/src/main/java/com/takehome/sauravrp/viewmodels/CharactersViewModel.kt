@@ -4,6 +4,10 @@ import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.takehome.sauravrp.repository.DirectoryRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -13,42 +17,53 @@ class CharacterViewModel(
     private val directoryRepository: DirectoryRepository
 ) : ViewModel() {
 
-    sealed class ViewState {
-        class Error(val error: Throwable) : ViewState()
-        object Loading : ViewState()
-        class Success(val data: Characters) : ViewState()
+//    sealed class ViewState {
+//        class Error(val error: Throwable) : ViewState()
+//        object Loading : ViewState()
+//        class Success(val data: Characters) : ViewState()
+//    }
+
+  //  private val mutableViewState = MutableLiveData<ViewState>()
+
+//    val viewState: LiveData<ViewState> by lazy {
+//        fetchCharacters()
+//        mutableViewState
+//    }
+
+//    private var disposable: Disposable? = null
+
+    fun fetchCharacters() : LiveData<PagingData<Character>> {
+        val pager = Pager(
+            PagingConfig(pageSize = 20),
+            1,
+            {directoryRepository}
+        )
+
+        return pager.liveData
     }
 
-    private val mutableViewState = MutableLiveData<ViewState>()
 
-    val viewState: LiveData<ViewState> by lazy {
-        fetchCharacters()
-        mutableViewState
-    }
+//    fun fetchCharacters() {
+//        disposable?.dispose()
+//        directoryRepository
+//            .getCharacterDirectory()
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe {
+//                mutableViewState.value = ViewState.Loading
+//            }
+//            .subscribe({ result ->
+//                mutableViewState.value = ViewState.Success(data = result)
+//            }, { error ->
+//                mutableViewState.value = ViewState.Error(error = error)
+//            }).also {
+//                disposable = it
+//            }
+//    }
 
-    private var disposable: Disposable? = null
-
-    fun fetchCharacters() {
-        disposable?.dispose()
-        directoryRepository
-            .getCharacterDirectory()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-                mutableViewState.value = ViewState.Loading
-            }
-            .subscribe({ result ->
-                mutableViewState.value = ViewState.Success(data = result)
-            }, { error ->
-                mutableViewState.value = ViewState.Error(error = error)
-            }).also {
-                disposable = it
-            }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable?.dispose()
-    }
+//    override fun onCleared() {
+//        super.onCleared()
+//        disposable?.dispose()
+//    }
 }
 
 @Parcelize

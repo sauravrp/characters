@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.takehome.sauravrp.R
@@ -14,7 +14,7 @@ import com.takehome.sauravrp.viewmodels.Character
 import com.takehome.sauravrp.views.adapter.CharactersAdapter.CharacterCardViewHolder
 
 class CharactersAdapter(private val characterSelectionListener: CharacterSelectionListener) :
-    ListAdapter<Character, CharacterCardViewHolder>(CharacterItemResultDiffCallback()) {
+    PagingDataAdapter<Character, CharacterCardViewHolder>(CharacterItemResultDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterCardViewHolder {
         val itemBinding = CharacterSummaryItemViewBinding.inflate(
@@ -28,7 +28,7 @@ class CharactersAdapter(private val characterSelectionListener: CharacterSelecti
     }
 
     override fun onBindViewHolder(holder: CharacterCardViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(snapshot().items[position])
     }
 
     inner class CharacterCardViewHolder(private val binding: CharacterSummaryItemViewBinding) :
@@ -62,7 +62,7 @@ class CharactersAdapter(private val characterSelectionListener: CharacterSelecti
         }
 
         override fun onClick(v: View?) {
-            characterSelectionListener.cardItemSelected(currentList[adapterPosition])
+            characterSelectionListener.cardItemSelected(snapshot().items[adapterPosition])
         }
     }
 
