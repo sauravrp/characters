@@ -52,6 +52,7 @@
             android:layout_height="75dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/image_loading"
             tools:srcCompat="@tools:sample/avatars"
             android:contentDescription="@string/avatar" />
 

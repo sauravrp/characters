@@ -28,7 +28,9 @@ class CharactersAdapter(private val characterSelectionListener: CharacterSelecti
     }
 
     override fun onBindViewHolder(holder: CharacterCardViewHolder, position: Int) {
-        holder.bind(snapshot().items[position])
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
     inner class CharacterCardViewHolder(private val binding: CharacterSummaryItemViewBinding) :
@@ -62,7 +64,9 @@ class CharactersAdapter(private val characterSelectionListener: CharacterSelecti
         }
 
         override fun onClick(v: View?) {
-            characterSelectionListener.cardItemSelected(snapshot().items[adapterPosition])
+            getItem(adapterPosition)?.let {
+                characterSelectionListener.cardItemSelected(it)
+            }
         }
     }
 
