@@ -53,7 +53,7 @@ class CharacterViewModelTest {
         val mockedObserver = createCharactersObserver()
 
         // https://stackoverflow.com/questions/48980897/unit-testing-rxjava-doonsubscribe-and-dofinally
-        val data = Characters(emptyList())
+        val data = Characters(Info(0, 1, null, null), emptyList())
         val delayer = PublishSubject.create<Boolean>()
         every { (directoryRepository.getCharacterDirectory()) } returns
                 Single.just(data).delaySubscription(delayer)
@@ -73,7 +73,7 @@ class CharacterViewModelTest {
     fun `when fetch characters called is successful, then view statue return success state`() {
         val mockedObserver = createCharactersObserver()
 
-        val data = Characters(emptyList())
+        val data = Characters(Info(0, 1, null, null), emptyList())
         every { (directoryRepository.getCharacterDirectory()) } returns
                 Single.just(data)
 

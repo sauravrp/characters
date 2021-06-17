@@ -18,6 +18,7 @@ import com.takehome.sauravrp.components.modules.MockNetworkModule
 import com.takehome.sauravrp.repository.toCharacter
 import com.takehome.sauravrp.viewmodels.CharacterViewModel
 import com.takehome.sauravrp.viewmodels.Characters
+import com.takehome.sauravrp.viewmodels.Info
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -127,8 +128,10 @@ class CharactersActivityTest {
         sut.resume()
         sut.visible()
 
+        val data = Characters(Info(0, 1, null, null), emptyList())
+
         mutableMockedCharactersLiveData.value =
-            CharacterViewModel.ViewState.Success(Characters(emptyList()))
+            CharacterViewModel.ViewState.Success(data)
 
         onView(withId(R.id.list_view)).check(matches(withEffectiveVisibility(Visibility.GONE)))
         onView(withId(R.id.progress)).check(matches(withEffectiveVisibility(Visibility.GONE)))
@@ -156,6 +159,7 @@ class CharactersActivityTest {
         mutableMockedCharactersLiveData.value =
             CharacterViewModel.ViewState.Success(
                 Characters(
+                    Info(0, 1, null, null),
                     listOf(
                         TestDataHelper.characterDto().toCharacter()
                     )
